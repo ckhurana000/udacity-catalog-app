@@ -1,0 +1,16 @@
+<h1>New Item</h1>
+
+<form method="post" action="{{ url_for('newItem', category_id=category_id) }}">
+
+	<label for="#name">
+		Name
+	</label>
+	<input type="text" id="name" name="name" size="30"> <br />
+	<label for="#desc">
+		Description
+	</label>
+	<input type="text" id="desc" name="description" size="30"> <br />
+	<input type="submit" name="submit" value="Create"> &nbsp;
+	<a href="{{ url_for('categoryItems', category_id=category_id) }}">Cancel</a>
+	
+</form>

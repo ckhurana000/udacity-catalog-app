@@ -1,0 +1,9 @@
+<h1>Catalog</h1>
+{% if categories %}
+<ul>
+{% for c in categories %}
+	<li> <a href="{{ url_for('categoryItems', category_id=c.id) }}"> {{ c.name }} </a>
+	<br />
+{% endfor %}
+</ul>
+{% endif %}

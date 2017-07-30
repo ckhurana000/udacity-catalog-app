@@ -1,0 +1,24 @@
+<h1>{{ category.name }}</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+	{% for m in messages %}
+	<li> {{ m }} </li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<a href="{{ url_for('newItem', category_id=category.id) }}">Add new item</a>
+
+{% if items %}
+<ul>
+{% for i in items %}
+	<li> {{ i.name }}
+	<br />
+	<a href="{{ url_for('editItem', category_id=category.id, item_id=i.id) }}">Edit</a>&nbsp;
+	<a href="{{ url_for('deleteItem', category_id=category.id, item_id=i.id) }}">Delete</a>
+{% endfor %}
+</ul>
+{% endif %}
