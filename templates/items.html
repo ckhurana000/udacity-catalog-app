@@ -1,24 +1,57 @@
-<h1>{{ category.name }}</h1>
+{% extends "template.html" %}
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul>
-	{% for m in messages %}
-	<li> {{ m }} </li>
-	{% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
+{% block content %}
 
-<a href="{{ url_for('newItem', category_id=category.id) }}">Add new item</a>
+	<div class="col-sm-4 col-sm-offset-4 col-xs-12 page-header text-uppercase text-center">
+        <h3>{{ category.name }}</h3>
+    </div>
 
-{% if items %}
-<ul>
-{% for i in items %}
-	<li> {{ i.name }}
-	<br />
-	<a href="{{ url_for('editItem', category_id=category.id, item_id=i.id) }}">Edit</a>&nbsp;
-	<a href="{{ url_for('deleteItem', category_id=category.id, item_id=i.id) }}">Delete</a>
-{% endfor %}
-</ul>
-{% endif %}
+    <div class="col-sm-4 col-sm-offset-4 col-xs-12">
+        <ul class="list-group">
+    	{% if items_list %}
+            <li class="list-group-item disabled">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="list-group-item-heading">
+                            Item Name
+                        </h4>
+                        <p class="list-group-item-text">
+                            Description
+                        </p>
+                    </div>
+                {% if user %}
+                    <a class="col-xs-4 text-right pull-right" href="{{ url_for('newItem', category_id=category.id) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                {% endif %}
+                </div>
+            </li>
+            {% for i in items_list %}
+                <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="list-group-item-heading">
+                            {{ i.item.name }}
+                        </h4>
+                        <p class="list-group-item-text">
+                            {{ i.item.description }}
+                        </p>
+                    </div>
+                    {% if i.auth %}
+                    <div class="pull-right col-xs-4 text-right">
+                        <a class="" href="{{ url_for('editItem', category_id=category.id, item_id=i.item.id) }}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="text-danger" href="{{ url_for('deleteItem', category_id=category.id, item_id=i.item.id) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                    {% endif %}
+                </div>
+                    
+                </li>
+            {% endfor %}
+                
+        {% else %}
+        	<li class="list-group-item text-center">
+                No items present, Click <kbd><strong>+</strong></kbd> above to create
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+
+{% endblock %}

@@ -1,9 +1,15 @@
-<h1>Catalog</h1>
-{% if categories %}
-<ul>
-{% for c in categories %}
-	<li> <a href="{{ url_for('categoryItems', category_id=c.id) }}"> {{ c.name }} </a>
-	<br />
-{% endfor %}
-</ul>
-{% endif %}
+{% extends "template.html" %}
+
+{% block content %}
+	<h3 class="col-sm-4 col-sm-offset-4 col-xs-12 page-header text-uppercase text-center">Catalog List</h3>
+	{% if categories %}
+	<div class="col-sm-4 col-sm-offset-4 col-xs-12">
+		<div class="list-group">
+			{% for c in categories %}
+				<a class="list-group-item" href="{{ url_for('categoryItems', category_id=c.id) }}"> {{ c.name }} </a>
+			{% endfor %}
+		</div>		
+	</div>
+
+	{% endif %}
+{% endblock %}
